@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.2/raphael-min.js"></script>
+    <script src="/static/js/sockjs-0.3.min.js"></script>
+    <script src="/static/js/util.js"></script>
+    <script src="/static/js/messaging.js"></script>
+    <script src="/static/js/clock.js"></script>
+    <script src="/static/js/adjust_clock.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css" />
+  </head>
+
+<body>
+  <div id="clock" style="">
+    <div id="clock_id"></div>
+    <button id="clock_toggle" type="button">start</button>
+    <button id="sync" type="button">sync</button>
+  </div>
+
+  <div id="log"></div>
+
+  <div id="channel">
+    <h1></h1>
+    <table></table>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      draw_clock();
+      update_clock();
+
+      $("#clock_toggle").click(function() {
+        if ($("#clock_toggle").text() == "start") {
+          start_clock();
+          $("#clock_toggle").text("stop");
+        } else {
+          stop_clock();
+          $("#clock_toggle").text("start");
+        }
+      });
+
+      var sync_button = $("#sync");
+      sync_button.click(function() {
+        if (sync_button.text() == "sync") {
+          start_clock_sync();
+          sync_button.text("stop syncing");
+        } else {
+          stop_clock_sync();
+          sync_button.text("sync");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
