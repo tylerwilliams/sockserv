@@ -26,15 +26,16 @@
 
   <script>
     $(document).ready(function() {
-      draw_clock();
-      update_clock();
+      var clock = new Clock("clock_id");
+      clock.draw();
+//      clock.update();
 
       $("#clock_toggle").click(function() {
         if ($("#clock_toggle").text() == "start") {
-          start_clock();
+          clock.start();
           $("#clock_toggle").text("stop");
         } else {
-          stop_clock();
+          clock.stop();
           $("#clock_toggle").text("start");
         }
       });

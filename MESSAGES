@@ -1,14 +1,17 @@
 ## All messages are described from the client's POV, so a '->' denotes an outgoing message (from the client to the server) and a '<-' denotes an incoming message (from the server to the client)
 
 # implicit connection:
--> new connection (no message is sent, client just requests new connection)
-<- connected:CONNECTION_ID
+-> [new connection] (no message is sent, client just requests new connection)
+<- con:CONNECTION_ID
 
 # direct messages:
-direct:SENDER:RECIPIENT:MESSAGE_TEXT
+-> msg:RECIPIENT:MESSAGE_TEXT:CTX
+<- msg:SENDER:MESSAGE_TEXT:CTX
 
-# channels: (messages are broadcast to all subscribers)
--> subscribe:CHANNEL_NAME
-<- subscribed:CHANNEL_NAME:SUBSCRIBER_ID
+# channels: (messages are broadcast to all subscribers, but not sender)
+-> sub:CHANNEL_NAME:CTX
+<- sub:CHANNEL_NAME:CTX
 
-->broadcast:CHANNEL_NAME:MESSAGE_TEXT
+-> pub:CHANNEL_NAME:MESSAGE_TEXT:CTX
+<= pub:CHANNEL_NAME:SENDER:MESSAGE_TEXT:CTX
+
